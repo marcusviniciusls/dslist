@@ -1,23 +1,21 @@
 package com.programmingschool.dslist.services;
 
-import com.programmingschool.dslist.dto.GameMinDTO;
+import com.programmingschool.dslist.dto.GameDTO;
 import com.programmingschool.dslist.entities.Game;
 import com.programmingschool.dslist.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-public class FindAllGamesServices {
+public class FindByIdGameService {
 
     @Autowired
     private GameRepository gameRepository;
 
     @Transactional(readOnly = true)
-    public List<GameMinDTO> findAllGames(){
-        List<Game> listResultEntity = gameRepository.findAll();
-        return listResultEntity.stream().map(game -> new GameMinDTO(game)).toList();
+    public GameDTO findById(Long id){
+        Game game = gameRepository.findById(id).get();
+        return new GameDTO(game);
     }
 }
